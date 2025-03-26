@@ -1,0 +1,58 @@
+---
+title: "Happiness Data Analysis"
+author: "Saqlain Abbas"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load Required Packages
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+## Load Dataset
+```{r}
+happiness_data <- read_csv("WHR2024.csv")
+cat("Dataset loaded successfully with", nrow(happiness_data), "rows and", ncol(happiness_data), "columns.\n")
+```
+
+## Display First 5 Rows
+```{r}
+head(happiness_data, 5)
+```
+
+## Summary Statistics
+```{r}
+summary(happiness_data)
+```
+
+## Identify Missing Values
+```{r}
+missing_values <- colSums(is.na(happiness_data))
+if (sum(missing_values) > 0) {
+  cat("Missing values found:\n")
+  print(missing_values[missing_values > 0])
+} else {
+  cat("No missing values found in the dataset.\n")
+}
+```
+
+## Clean the Dataset
+```{r}
+original_rows <- nrow(happiness_data)
+cleaned_happiness <- happiness_data %>% drop_na()
+
+cat("Original rows:", original_rows, "\n")
+cat("Rows after cleaning:", nrow(cleaned_happiness), "\n")
+cat("Rows removed:", original_rows - nrow(cleaned_happiness), "\n")
+```
+
+## Save Cleaned Dataset
+```{r}
+write_csv(cleaned_happiness, "cleaned_happiness.csv")
+cat("Cleaned dataset saved as 'cleaned_happiness.csv'\n")
