@@ -1,2 +1,3 @@
 # OEL_PFAI
-This the OEL task i have perform in PFAI lab.
+This repository contains my OEL task from the PFAI lab. It includes code, experiment results, and documentation.
+
